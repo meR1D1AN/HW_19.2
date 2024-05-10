@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Category(models.Model):
+    objects = None
     name = models.CharField(
         max_length=100,
         verbose_name="Имя категории",
@@ -23,6 +24,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    objects = None
     name = models.CharField(
         max_length=100,
         verbose_name="Наименование",
@@ -61,12 +63,6 @@ class Product(models.Model):
     )
     updated_at = models.DateTimeField(
         auto_now=True
-    )
-    manufactured_at = models.DateTimeField(
-        verbose_name="Дата производства",
-        help_text="Введите дату производства",
-        blank=True,
-        null=True,
     )
 
     class Meta:
