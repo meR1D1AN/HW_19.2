@@ -81,6 +81,8 @@ DATABASES = {
         "NAME": "hw_20_1",
         "USER": sql_user,
         "PASSWORD": sql_pass,
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -122,7 +124,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, "static"),
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
