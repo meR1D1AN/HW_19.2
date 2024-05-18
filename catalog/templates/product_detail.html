@@ -1,8 +1,10 @@
 {% extends 'home.html' %}
+{% load my_ff %}
 {% block content %}
 <div class="row text-center">
     <div class="col-3">
         <div class="card mb-4 box-shadow">
+            <img src="{{ product.photo | media_filter }}" class="card-img-top">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">{{ product.name | title }}</h4>
             </div>

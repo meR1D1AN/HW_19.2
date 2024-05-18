@@ -1,19 +1,21 @@
 {% extends 'home.html' %}
+{% load my_ff %}
 {% block content %}
 <div class="container">
     <div class="row text-center">
         {% for product in object_list %}
         <div class="col-4 mb-4">
             <div class="card h-100 mb-4 box-shadow">
+                <img src="{{ product.photo | media_filter }}" class="card-img-top">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ product.name|title }}</h4>
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ product.purchase_price }} руб.</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>{{product.description|truncatechars:100 }}</li>
+                        <li>{{product.description | truncatechars:100 }}</li>
                     </ul>
-                    <a class="btn btn-outline-primary" href="#" role="button">Подробнее</a>
+                    <a class="btn btn-outline-primary" href="{%% url 'catalog:product_list' product.pk %}" role="button">Подробнее</a>
                 </div>
 
             </div>
