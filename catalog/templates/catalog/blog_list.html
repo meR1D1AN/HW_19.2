@@ -1,0 +1,33 @@
+{% extends 'catalog/home.html' %}
+{% load my_ff %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <a class="mb-3 btn btn-outline-primary" href="{% url 'catalog:blog_create' %}" role="button">Создать запись в блоге</a>
+        </div>
+    </div>
+    <div class="row text-center">
+        {% for blog in object_list %}
+        <div class="col-4 mb-4">
+            <div class="card h-100 mb-4 box-shadow">
+                <img src="{{ blog.photo | media_filter }}" class="card-img-top">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ blog.name|title }}</h4>
+                </div>
+                <div class="card-body">
+
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+
+                    </ul>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_detail' blog.pk %}" role="button">Подробнее</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_update' blog.pk %}" role="button">Изменить</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_delete' blog.pk %}" role="button">Удалить</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
