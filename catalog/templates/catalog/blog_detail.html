@@ -15,8 +15,8 @@
             </div>
         </div>
         <a class="btn btn-outline-primary" href="{% url 'catalog:blog_list' %}" role="button">Вернуться</a>
-        <a class="btn btn-outline-primary" href="{% url 'catalog:blog_update' blog.pk %}" role="button">Изменить</a>
-        <a class="btn btn-outline-primary" href="{% url 'catalog:blog_delete' blog.pk %}" role="button">Удалить</a>
+        <a class="btn btn-outline-primary" href="{% url 'catalog:blog_update' object.slug %}" role="button">Изменить</a>
+        <a class="btn btn-outline-primary" href="{% url 'catalog:blog_delete' object.slug %}" role="button">Удалить</a>
     </div>
     <div class="col-4">
         <div class="card-body">

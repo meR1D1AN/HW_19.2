@@ -20,9 +20,9 @@
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
 
                     </ul>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_detail' blog.pk %}" role="button">Подробнее</a>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_update' blog.pk %}" role="button">Изменить</a>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_delete' blog.pk %}" role="button">Удалить</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_detail' slug=blog.slug %}" role="button">Подробнее</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_update' slug=blog.slug %}" role="button">Изменить</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_delete' slug=blog.slug %}" role="button">Удалить</a>
                 </div>
 
             </div>
