@@ -65,7 +65,7 @@ class BlogUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('catalog:blog_detail', args=[self.kwargs.get('pk')])
+        return reverse_lazy('catalog:blog_detail', args=[self.object.slug])
 
 
 class BlogDeleteView(DeleteView):

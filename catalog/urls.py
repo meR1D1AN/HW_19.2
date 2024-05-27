@@ -10,8 +10,8 @@ urlpatterns = [
     path("", ProductListView.as_view(), name="product_list"),
     path("product/<int:pk>/", ProductDetailView.as_view(), name="product_detail"),
     path("blog/", BlogListView.as_view(), name="blog_list"),
-    path("blog/<slug:slug>/", BlogDetailView.as_view(), name="blog_detail"),
     path("blog/create/", BlogCreateView.as_view(), name="blog_create"),
+    path("blog/<slug:slug>/", BlogDetailView.as_view(), name="blog_detail"),
     path("blog/<slug:slug>/update/", BlogUpdateView.as_view(), name="blog_update"),
     path("blog/<slug:slug>/delete/", BlogDeleteView.as_view(), name="blog_delete"),
 ]
