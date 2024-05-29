@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row text-center">
         <div class="col">
-            <a class="mb-3 btn btn-outline-primary" href="{% url 'catalog:blog_create' %}" role="button">Создать запись в блоге</a>
+            <a class="mb-3 btn btn-outline-primary" href="{% url 'blog:blog_create' %}" role="button">Создать запись в блоге</a>
         </div>
     </div>
     <div class="row text-center">
@@ -16,15 +16,12 @@
                     <h4 class="my-0 font-weight-normal">{{ blog.name|title }}</h4>
                 </div>
                 <div class="card-body">
-
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-
                     </ul>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_detail' slug=blog.slug %}" role="button">Подробнее</a>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_update' slug=blog.slug %}" role="button">Изменить</a>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:blog_delete' slug=blog.slug %}" role="button">Удалить</a>
+                    <a class="btn btn-outline-primary" href="{% url 'blog:blog_detail' slug=blog.slug %}" role="button">Подробнее</a>
+                    <a class="btn btn-outline-primary" href="{% url 'blog:blog_update' slug=blog.slug %}" role="button">Изменить</a>
+                    <a class="btn btn-outline-primary" href="{% url 'blog:blog_delete' slug=blog.slug %}" role="button">Удалить</a>
                 </div>
-
             </div>
         </div>
         {% endfor %}
