@@ -15,7 +15,9 @@
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>{{ product.description | truncatechars:100 }}</li>
                     </ul>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Подробнее</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Просмотр</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}" role="button">Изменить</a>
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                 </div>
 
             </div>

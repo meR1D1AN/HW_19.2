@@ -22,6 +22,20 @@ class ProductDetailView(DetailView):
     model = Product
 
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = '__all__'
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = '__all__'
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+
+
 class BlogListView(ListView):
     model = Blog
 
