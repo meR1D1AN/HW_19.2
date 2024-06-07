@@ -7,7 +7,12 @@ class Blog(models.Model):
         verbose_name="Заголовок",
         help_text="Введите название заголовка",
     )
-    slug = models.SlugField(max_length=100, verbose_name='Ссылка', unique=True, blank=True)
+    slug = models.SlugField(
+        max_length=100,
+        verbose_name='Ссылка',
+        unique=True,
+        blank=True
+    )
     description = models.TextField(
         verbose_name="Описание",
         help_text="Введите описание продукта",
@@ -33,4 +38,4 @@ class Blog(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
