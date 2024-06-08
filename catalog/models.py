@@ -87,16 +87,19 @@ class Version(models.Model):
         help_text="Выберите продукт",
         related_name="versions",
     )
-    version_number = models.PositiveIntegerField(
-
-    )
     version_name = models.CharField(
         max_length=100,
         verbose_name="Название версии",
         help_text="Введите Название версии",
     )
+    version_number = models.PositiveIntegerField(
+        verbose_name="Номер версии",
+        help_text="Введите Номер версии",
+        unique=True,
+    )
     current_version = models.BooleanField(
-        default=False
+        default=False,
+        verbose_name="Текущая версия",
     )
 
     class Meta:
@@ -105,4 +108,4 @@ class Version(models.Model):
         ordering = ["version_number"]
 
     def __str__(self):
-        return f'{self.product.name} - {self.version_name}'
+        return f'{self.product.name} - {self.version_name} ({self.version_number})'

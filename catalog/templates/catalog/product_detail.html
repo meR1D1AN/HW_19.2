@@ -17,10 +17,17 @@
             <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                 <li>{{ object.description }}</li>
             </ul>
+            <div class="text-end">
+                {% if current_version %}
+                <p><strong>Активная версия: </strong>{{ current_version.version_name }} ({{ current_version.version_number }})</p>
+                {% endif %}
+            </div>
+
             <a class="btn btn-outline-primary" href="{% url 'catalog:product_list' %}" role="button">Вернуться</a>
             <a class="btn btn-outline-primary" href="{% url 'catalog:product_update' object.pk %}"
                role="button">Изменить</a>
-            <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' object.pk %}" role="button">Удалить</a>
+            <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' object.pk %}"
+               role="button">Удалить</a>
         </div>
     </div>
 </div>
