@@ -15,22 +15,27 @@ class Blog(models.Model):
     )
     description = models.TextField(
         verbose_name="Описание",
-        help_text="Введите описание продукта",
+        help_text="Введите описание",
         blank=True,
         null=True,
     )
     photo = models.ImageField(
         verbose_name="Изображение(превью)",
         upload_to="products",
-        help_text="Загрузите Изображение(превью)",
         blank=True,
         null=True,
     )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
-    is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
-    views_count = models.PositiveIntegerField(default=0, verbose_name='Просмотры')
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name="Опубликовано"
+    )
+    views_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name="Просмотры"
+    )
 
     class Meta:
         verbose_name = "Запись"

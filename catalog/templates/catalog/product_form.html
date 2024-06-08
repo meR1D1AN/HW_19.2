@@ -1,9 +1,9 @@
 {% extends 'catalog/home.html' %}
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <form class="row" method="post" enctype="multipart/form-data">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-body">
                         {% csrf_token %}
@@ -17,8 +17,8 @@
                         {% endif %}
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}

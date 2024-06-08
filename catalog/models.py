@@ -28,6 +28,15 @@ class Product(models.Model):
         verbose_name="Наименование",
         help_text="Введите наименование продукта",
     )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        verbose_name="Категория",
+        help_text="Выберите категорию",
+        null=True,
+        blank=True,
+        related_name="products",
+    )
     slug = models.SlugField(
         max_length=100,
         verbose_name='Ссылка',
@@ -43,24 +52,14 @@ class Product(models.Model):
     photo = models.ImageField(
         verbose_name="Изображение(превью)",
         upload_to="products",
-        help_text="Загрузите Изображение(превью)",
         blank=True,
         null=True,
-    )
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.SET_NULL,
-        verbose_name="Категория",
-        help_text="Выберите категорию",
-        null=True,
-        blank=True,
-        related_name="products",
     )
     purchase_price = models.DecimalField(
         verbose_name="Цена",
         max_digits=10,
         decimal_places=2,
-        help_text="Введите цену"
+        help_text="Введите цену в рублях"
     )
     created_at = models.DateTimeField(
         auto_now_add=True
