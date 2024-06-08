@@ -13,14 +13,22 @@ class StyleMixin:
 class ProductForm(StyleMixin, ModelForm):
     class Meta:
         model = Product
-        exclude = ('slug', 'created_at', 'updated_at',)
+        fields = '__all__'
 
-    def clean_name_description(self):
-        name = self.cleaned_data['name']
-        description = self.cleaned_data['description']
+    def clean_name(self):
+        name = self.cleaned_data['name'].lower()
         forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
                            'радар']
-        if any(word in name for word in forbidden_words):
-            raise ValidationError('Нельзя добавлять запрешенные слова в название')
-        if any(word in description for word in forbidden_words):
-            raise ValidationError('Нельзя добавлять запрешенные слова в описание')
+        for word in forbidden_words:
+            if word in name:
+                raise ValidationError('Нельзя добавлять запрещенные слова в название')
+        return name
+
+    def clean_description(self):
+        description = self.cleaned_data['description'].lower()
+        forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                           'радар']
+        for word in forbidden_words:
+            if word in description:
+                raise ValidationError('Нельзя добавлять запрещенные слова в название')
+        return description

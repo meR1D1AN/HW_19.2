@@ -16,14 +16,20 @@ class StyleMixin:
 class BlogForm(StyleMixin, ModelForm):
     class Meta:
         model = Blog
-        exclude = ('slug', 'created_at', 'views_count',)
+        exclude = ('created_at', 'views_count',)
 
-    def clean_name_description(self):
+    def clean_name(self):
         name = self.cleaned_data['name']
+        forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                           'радар']
+        for word in forbidden_words:
+            if word in name:
+                raise ValidationError('Нельзя добавлять запрещенные слова в название')
+
+    def clean_description(self):
         description = self.cleaned_data['description']
         forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
                            'радар']
-        if any(word in name for word in forbidden_words):
-            raise ValidationError('Нельзя добавлять запрешенные слова в название')
-        if any(word in description for word in forbidden_words):
-            raise ValidationError('Нельзя добавлять запрешенные слова в описание')
+        for word in forbidden_words:
+            if word in description:
+                raise ValidationError('Нельзя добавлять запрещенные слова в название')

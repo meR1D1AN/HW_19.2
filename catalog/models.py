@@ -6,6 +6,8 @@ class Category(models.Model):
         max_length=100,
         verbose_name="Имя категории",
         help_text="Введите название категории",
+        blank=True,
+        null=True,
     )
     description = models.TextField(
         verbose_name="Описание категории",
@@ -37,12 +39,12 @@ class Product(models.Model):
         blank=True,
         related_name="products",
     )
-    slug = models.SlugField(
-        max_length=100,
-        verbose_name='Ссылка',
-        unique=True,
-        blank=True
-    )
+    # slug = models.SlugField(
+    #     max_length=100,
+    #     verbose_name='Ссылка',
+    #     unique=True,
+    #     blank=True
+    # )
     description = models.TextField(
         verbose_name="Описание",
         help_text="Введите описание продукта",

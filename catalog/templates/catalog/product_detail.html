@@ -18,9 +18,9 @@
                 <li>{{ object.description }}</li>
             </ul>
             <a class="btn btn-outline-primary" href="{% url 'catalog:product_list' %}" role="button">Вернуться</a>
-            <a class="btn btn-outline-primary" href="{% url 'catalog:product_update' object.slug %}"
+            <a class="btn btn-outline-primary" href="{% url 'catalog:product_update' object.pk %}"
                role="button">Изменить</a>
-            <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' object.slug %}" role="button">Удалить</a>
+            <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' object.pk %}" role="button">Удалить</a>
         </div>
     </div>
 </div>

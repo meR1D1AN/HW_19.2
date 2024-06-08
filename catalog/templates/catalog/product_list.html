@@ -2,7 +2,6 @@
 {% load my_ff %}
 {% block content %}
 <div class="container">
-
     <div class="row text-center">
         {% for product in object_list %}
         <div class="col-4 mb-4">
@@ -16,14 +15,13 @@
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>{{ product.description | truncatechars:100 }}</li>
                     </ul>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' slug=product.slug %}"
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_detail' product.pk %}"
                        role="button">Просмотр</a>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_update' slug=product.slug %}"
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}"
                        role="button">Изменить</a>
-                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' slug=product.slug %}"
+                    <a class="btn btn-outline-primary" href="{% url 'catalog:product_delete' product.pk %}"
                        role="button">Удалить</a>
                 </div>
-
             </div>
         </div>
         {% endfor %}
