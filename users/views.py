@@ -2,7 +2,7 @@ import secrets
 import random
 
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout
 from django.core.mail import send_mail
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -47,7 +47,7 @@ def verify(request, token):
 class CustomLogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('/')  # Перенаправляет на главную страницу
+        return redirect(reverse('catalog:product_list'))  # Перенаправляет на главную страницу
 
 
 class ProfileView(UpdateView):
@@ -69,7 +69,7 @@ class PasswordResetView(FormView):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             user = User.objects.get(email=email)
-            new_password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
+            new_password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=9))
             user.password = make_password(new_password)
             user.save()
             send_mail(

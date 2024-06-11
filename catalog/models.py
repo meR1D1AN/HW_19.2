@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -39,12 +41,6 @@ class Product(models.Model):
         blank=True,
         related_name="products",
     )
-    # slug = models.SlugField(
-    #     max_length=100,
-    #     verbose_name='Ссылка',
-    #     unique=True,
-    #     blank=True
-    # )
     description = models.TextField(
         verbose_name="Описание",
         help_text="Введите описание продукта",
@@ -68,6 +64,15 @@ class Product(models.Model):
     )
     updated_at = models.DateTimeField(
         auto_now=True
+    )
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Владелец",
+        on_delete=models.SET_NULL,
+        help_text="Выберите владельца",
+        blank=True,
+        null=True,
+        related_name="products",
     )
 
     class Meta:

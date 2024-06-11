@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Blog(models.Model):
     name = models.CharField(
@@ -7,12 +9,6 @@ class Blog(models.Model):
         verbose_name="Заголовок",
         help_text="Введите название заголовка",
     )
-    # slug = models.SlugField(
-    #     max_length=100,
-    #     verbose_name='Ссылка',
-    #     unique=True,
-    #     blank=True
-    # )
     description = models.TextField(
         verbose_name="Описание",
         help_text="Введите описание",
@@ -35,6 +31,14 @@ class Blog(models.Model):
     views_count = models.PositiveIntegerField(
         default=0,
         verbose_name="Просмотры"
+    )
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Владелец",
+        on_delete=models.SET_NULL,
+        help_text="Выберите владельца",
+        blank=True,
+        null=True,
     )
 
     class Meta:

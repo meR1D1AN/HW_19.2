@@ -6,11 +6,10 @@ from users.views import CustomLogoutView, RegisterView, ProfileView, verify, Pas
 app_name = UsersConfig.name
 
 urlpatterns = [
+    path("register/", RegisterView.as_view(), name="register"),
+    path("verify/<str:token>/", verify, name="verify"),
     path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
     path("logout/", CustomLogoutView.as_view(), name="logout"),
-    path("register/", RegisterView.as_view(), name="register"),
     path("profile/", ProfileView.as_view(), name="profile"),
-    path("verify/<str:token>/", verify, name="verify"),
     path("reset_password/", PasswordResetView.as_view(), name="reset_password"),
-
 ]
