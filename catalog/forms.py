@@ -3,7 +3,7 @@ from django.forms import ModelForm, BooleanField
 from catalog.models import Product
 
 
-class StyleMixin:
+class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -13,7 +13,7 @@ class StyleMixin:
                 field.widget.attrs['class'] = 'form-control'
 
 
-class ProductForm(StyleMixin, ModelForm):
+class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
