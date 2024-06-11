@@ -7,10 +7,10 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, FormView
 
 from config.settings import EMAIL_HOST_USER
-from users.forms import UserRegisterForm, UserProfileForm
+from users.forms import UserRegisterForm, UserProfileForm, CustomPasswordResetForm
 from users.models import User
 
 
@@ -27,7 +27,7 @@ class RegisterView(CreateView):
         user.token = token
         user.save()
         host = self.request.get_host()
-        url = f'http://{host}/users/email_verification/{token}/'
+        url = f'http://{host}/users/verify/{token}/'
         send_mail(
             subject='Активация аккаунта',
             message=f'Для активации аккаунта, перейдите по ссылке: {url}',
@@ -35,6 +35,13 @@ class RegisterView(CreateView):
             recipient_list=[user.email]
         )
         return super().form_valid(form)
+
+
+def verify(request, token):
+    user = get_object_or_404(User, token=token)
+    user.is_active = True
+    user.save()
+    return redirect(reverse('users:login'))
 
 
 class CustomLogoutView(View):
@@ -52,27 +59,23 @@ class ProfileView(UpdateView):
         return self.request.user
 
 
-class VerifyEmailView(View):
-    def get(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        user.is_active = True
-        user.save()
-        login(request, user)
-        return redirect(reverse('users:login'))
+class PasswordResetView(FormView):
+    form_class = CustomPasswordResetForm
+    template_name = 'users/password_reset.html'
+    success_url = reverse_lazy('users:login')
 
-
-class PasswordResetView(View):
-    def post(self, request):
-        email = request.POST.get('email')
-        user = get_object_or_404(User, email=email)
-        new_password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
-        user.password = make_password(new_password)
-        user.save()
-        send_mail(
-            'Восстановление пароля',
-            'Ваш новый пароль: {}'.format(new_password),
-            EMAIL_HOST_USER,
-            [user.email],
-            fail_silently=False,
-        )
-        return redirect('login')
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            user = User.objects.get(email=email)
+            new_password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyz0123456789', k=8))
+            user.password = make_password(new_password)
+            user.save()
+            send_mail(
+                subject='Восстановление пароля',
+                message='Ваш новый пароль: {}'.format(new_password),
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[user.email]
+            )
+        return redirect('users:login')

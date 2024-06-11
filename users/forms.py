@@ -1,5 +1,5 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.forms import HiddenInput
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordResetForm
+from django.forms import HiddenInput, EmailField, EmailInput
 
 from catalog.forms import StyleFormMixin
 from users.models import User
@@ -20,3 +20,7 @@ class UserProfileForm(StyleFormMixin, UserChangeForm):
         super().__init__(*args, **kwargs)
 
         self.fields['password'].widget = HiddenInput()
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = EmailField(widget=EmailInput(attrs={'class': 'form-control'}))
