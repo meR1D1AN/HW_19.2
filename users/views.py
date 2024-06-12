@@ -47,7 +47,7 @@ def verify(request, token):
 class CustomLogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect(reverse('catalog:product_list'))  # Перенаправляет на главную страницу
+        return redirect('/')  # Перенаправляет на главную страницу
 
 
 class ProfileView(UpdateView):

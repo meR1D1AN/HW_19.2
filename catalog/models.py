@@ -69,7 +69,6 @@ class Product(models.Model):
         User,
         verbose_name="Владелец",
         on_delete=models.SET_NULL,
-        help_text="Выберите владельца",
         blank=True,
         null=True,
         related_name="products",

@@ -16,7 +16,7 @@ class ContactView(TemplateView):
         return context
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductListView(ListView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -28,7 +28,7 @@ class ProductListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -45,14 +45,25 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
 
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['owner'] = self.request.user
+        return initial
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     kwargs['initial'] = {'owner': self.request.user}
+    #     return kwargs
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    login_url = "users:login"
     success_url = reverse_lazy('catalog:product_list')
 
     def get_context_data(self, **kwargs):
@@ -78,4 +89,5 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
+    login_url = "users:login"
     success_url = reverse_lazy('catalog:product_list')
