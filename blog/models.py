@@ -2,6 +2,8 @@ from django.db import models
 
 from users.models import User
 
+NULLABLE = {"null": True, "blank": True}
+
 
 class Blog(models.Model):
     name = models.CharField(
@@ -12,14 +14,12 @@ class Blog(models.Model):
     description = models.TextField(
         verbose_name="Описание",
         help_text="Введите описание",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
     photo = models.ImageField(
         verbose_name="Изображение(превью)",
         upload_to="products",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -37,8 +37,7 @@ class Blog(models.Model):
         verbose_name="Владелец",
         on_delete=models.SET_NULL,
         help_text="Выберите владельца",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
 
     class Meta:
