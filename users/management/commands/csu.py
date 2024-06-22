@@ -8,7 +8,7 @@ email_password = os.environ.get("EMAILHOSTPASSWORD")
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user = User.objects.create(
-            email='a@ru.ru',
+            email='a@a.a',
             first_name='Mer1d1an',
             last_name='Nikita',
             is_staff=True,

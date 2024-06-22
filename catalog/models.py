@@ -2,20 +2,20 @@ from django.db import models
 
 from users.models import User
 
+NULLABLE = {"null": True, "blank": True}
+
 
 class Category(models.Model):
     name = models.CharField(
         max_length=100,
         verbose_name="Имя категории",
         help_text="Введите название категории",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
     description = models.TextField(
         verbose_name="Описание категории",
         help_text="Введите описание категории",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
 
     class Meta:
@@ -42,16 +42,14 @@ class Product(models.Model):
         related_name="products",
     )
     description = models.TextField(
-        verbose_name="Описание",
+        verbose_name="Описание продукта",
         help_text="Введите описание продукта",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
     photo = models.ImageField(
         verbose_name="Изображение(превью)",
         upload_to="products",
-        blank=True,
-        null=True,
+        **NULLABLE,
     )
     purchase_price = models.DecimalField(
         verbose_name="Цена",
@@ -65,12 +63,15 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True
     )
+    published = models.BooleanField(
+        default=False,
+        verbose_name="Опубликовано",
+    )
     owner = models.ForeignKey(
         User,
         verbose_name="Владелец",
         on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
+        **NULLABLE,
         related_name="products",
     )
 
@@ -78,6 +79,11 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name", "purchase_price"]
+        permissions = [
+            ('can_cancel_published', 'Может отменять публикацию продукта'),
+            ('can_edit_description', 'Может менять описание продукта'),
+            ('can_edit_category', 'Может менять категорию продукта'),
+        ]
 
     def __str__(self):
         return f'{self.name}'
