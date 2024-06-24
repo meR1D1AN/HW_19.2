@@ -10,18 +10,18 @@ class Command(BaseCommand):
         """
         Здесь мы получаем данные из фикстуры с категориями
         """
-        with open('data.json') as f:
+        with open("data.json") as f:
             data = json.load(f)
-            return [item for item in data if item['model'] == 'catalog.category']
+            return [item for item in data if item["model"] == "catalog.category"]
 
     @staticmethod
     def json_read_products():
         """
         Здесь мы получаем данные из фикстуры с продуктами
         """
-        with open('data.json') as f:
+        with open("data.json") as f:
             data = json.load(f)
-            return [item for item in data if item['model'] == 'catalog.product']
+            return [item for item in data if item["model"] == "catalog.product"]
 
     def handle(self, *args, **options):
         # Сначала удаляем категории
@@ -37,19 +37,22 @@ class Command(BaseCommand):
         # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
         for category in Command.json_read_categories():
             category_for_create.append(
-                Category(name=category['fields']['name'], description=category['fields']['description'])
+                Category(
+                    name=category["fields"]["name"],
+                    description=category["fields"]["description"],
+                )
             )
         # Создаем объекты в базе с помощью метода bulk_create()
         Category.objects.bulk_create(category_for_create)
 
         # Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
-            category = Category.objects.get(pk=product['fields']['category'])
+            category = Category.objects.get(pk=product["fields"]["category"])
             product_for_create.append(
                 Product(
-                    name=product['fields']['name'],
-                    description=product['fields']['description'],
-                    category=category
+                    name=product["fields"]["name"],
+                    description=product["fields"]["description"],
+                    category=category,
                 )
             )
         # Создаем объекты в базе с помощью метода bulk_create()

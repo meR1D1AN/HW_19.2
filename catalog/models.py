@@ -55,14 +55,10 @@ class Product(models.Model):
         verbose_name="Цена",
         max_digits=10,
         decimal_places=2,
-        help_text="Введите цену в рублях"
+        help_text="Введите цену в рублях",
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     published = models.BooleanField(
         default=False,
         verbose_name="Опубликовано",
@@ -80,13 +76,13 @@ class Product(models.Model):
         verbose_name_plural = "Продукты"
         ordering = ["name", "purchase_price"]
         permissions = [
-            ('can_cancel_published', 'Может отменять публикацию продукта'),
-            ('can_edit_description', 'Может менять описание продукта'),
-            ('can_edit_category', 'Может менять категорию продукта'),
+            ("can_cancel_published", "Может отменять публикацию продукта"),
+            ("can_edit_description", "Может менять описание продукта"),
+            ("can_edit_category", "Может менять категорию продукта"),
         ]
 
     def __str__(self):
-        return f'{self.name}'
+        return f"{self.name}"
 
 
 class Version(models.Model):
@@ -118,4 +114,4 @@ class Version(models.Model):
         ordering = ["version_number"]
 
     def __str__(self):
-        return f'{self.product.name} - {self.version_name} ({self.version_number})'
+        return f"{self.product.name} - {self.version_name} ({self.version_number})"

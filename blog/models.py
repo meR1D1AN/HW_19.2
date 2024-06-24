@@ -21,17 +21,9 @@ class Blog(models.Model):
         upload_to="products",
         **NULLABLE,
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
-    is_published = models.BooleanField(
-        default=False,
-        verbose_name="Опубликовано"
-    )
-    views_count = models.PositiveIntegerField(
-        default=0,
-        verbose_name="Просмотры"
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
+    views_count = models.PositiveIntegerField(default=0, verbose_name="Просмотры")
     owner = models.ForeignKey(
         User,
         verbose_name="Владелец",
@@ -46,4 +38,4 @@ class Blog(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return f'{self.name}'
+        return f"{self.name}"

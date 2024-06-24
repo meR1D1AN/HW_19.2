@@ -1,5 +1,11 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.utils.text import slugify
 
 from blog.forms import BlogForm
@@ -26,18 +32,18 @@ class BlogDetailView(DetailView):
 class BlogCreateView(CreateView):
     model = Blog
     form_class = BlogForm
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
     form_class = BlogForm
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")
 
     def get_success_url(self):
-        return reverse_lazy('blog:blog_detail', args=[self.object.slug])
+        return reverse_lazy("blog:blog_detail", args=[self.object.slug])
 
 
 class BlogDeleteView(DeleteView):
     model = Blog
-    success_url = reverse_lazy('blog:blog_list')
+    success_url = reverse_lazy("blog:blog_list")

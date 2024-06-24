@@ -6,16 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalog', '0004_alter_blog_slug'),
+        ("catalog", "0004_alter_blog_slug"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Blog',
+            name="Blog",
         ),
         migrations.AddField(
-            model_name='product',
-            name='slug',
-            field=models.SlugField(blank=True, max_length=100, unique=True, verbose_name='Ссылка'),
+            model_name="product",
+            name="slug",
+            field=models.SlugField(
+                blank=True, max_length=100, unique=True, verbose_name="Ссылка"
+            ),
         ),
     ]
