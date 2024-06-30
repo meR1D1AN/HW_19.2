@@ -4,12 +4,12 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-dot_env = os.path.join(BASE_DIR, '.env')
+dot_env = os.path.join(BASE_DIR, ".env")
 load_dotenv(dotenv_path=dot_env)
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG, False") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -58,11 +58,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv('SQL_NAME'),
-        "USER": os.getenv('SQL_USER'),
-        "PASSWORD": os.getenv('SQL_PASS'),
-        "HOST": os.getenv('SQL_HOST'),
-        "PORT": os.getenv('SQL_PORT'),
+        "NAME": os.getenv("SQL_NAME"),
+        "USER": os.getenv("SQL_USER"),
+        "PASSWORD": os.getenv("SQL_PASS"),
+        "HOST": os.getenv("SQL_HOST"),
+        "PORT": os.getenv("SQL_PORT"),
     }
 }
 
@@ -108,10 +108,10 @@ AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_USE_SSL = os.getenv("EMAIL_SSL") == 'True'
-EMAIL_USE_TLS = os.getenv("EMAIL_TLS") == 'False'
-EMAIL_HOST_USER = os.getenv('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
+EMAIL_USE_SSL = os.getenv("EMAIL_SSL", False) == "True"
+EMAIL_USE_TLS = os.getenv("EMAIL_TLS", True) == "False"
+EMAIL_HOST_USER = os.getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASS")
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -121,6 +121,6 @@ if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": os.getenv('CACHE_LOCATION'),
+            "LOCATION": os.getenv("CACHE_LOCATION"),
         }
     }
