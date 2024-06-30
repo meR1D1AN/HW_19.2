@@ -1,15 +1,13 @@
 from pathlib import Path
 import os
-
-sql_pass = os.environ.get("SQLPASS")
-sql_user = os.environ.get("SQLUSER")
-email_user = os.environ.get("EMAILHOSTUSER")
-email_password = os.environ.get("EMAILHOSTPASSWORD")
-email_host = os.environ.get("EMAILHOST")
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-%tswaa_ck!$u_u-n99+ztdxtltkn_k^*9*bdtksoh*ak+i5gzz"
+dot_env = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path=dot_env)
+
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
@@ -60,11 +58,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "hw_20_1",
-        "USER": sql_user,
-        "PASSWORD": sql_pass,
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "NAME": os.getenv('SQL_NAME'),
+        "USER": os.getenv('SQL_USER'),
+        "PASSWORD": os.getenv('SQL_PASS'),
+        "HOST": os.getenv('SQL_HOST'),
+        "PORT": os.getenv('SQL_PORT'),
     }
 }
 
@@ -108,19 +106,22 @@ LOGIN_URL = "users:login"
 
 AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
-EMAIL_HOST = email_host
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
-EMAIL_HOST_USER = email_user
-EMAIL_HOST_PASSWORD = email_password
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_SSL = os.getenv("EMAIL_SSL") == 'True'
+EMAIL_USE_TLS = os.getenv("EMAIL_TLS") == 'False'
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv('CACHE_LOCATION'),
+        }
     }
-}
