@@ -1,0 +1,10 @@
+{% extends 'catalog/home.html' %}
+{% load my_ff %}
+{% block content %}
+<h1>Список категорий</h1>
+<ul>
+    {% for category in categories %}
+    <li>{{ category.name }}: {{ category.description }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

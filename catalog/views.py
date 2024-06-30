@@ -12,8 +12,8 @@ from django.views.generic import (
 )
 
 from catalog.forms import ProductForm, ProductManagerForm
-from catalog.models import Product, Version
-from catalog.services import get_product_from_cache
+from catalog.models import Product, Version, Category
+from catalog.services import get_categories, get_products
 
 
 class ContactView(TemplateView):
@@ -25,11 +25,21 @@ class ContactView(TemplateView):
         return context
 
 
-class ProductListView(ListView):
-    model = Product
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'catalog/catalog_list.html'
+    context_object_name = 'categories'
 
     def get_queryset(self):
-        return get_product_from_cache()
+        return get_categories()
+
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/product_list.html'  # Укажите шаблон для отображения списка продуктов
+
+    def get_queryset(self):
+        return get_products()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -103,9 +113,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         if user == self.object.owner:
             return ProductForm
         if (
-            user.has_perm("catalog.can_cancel_published")
-            and user.has_perm("catalog.can_edit_description")
-            and user.has_perm("catalog.can_edit_category")
+                user.has_perm("catalog.can_cancel_published")
+                and user.has_perm("catalog.can_edit_description")
+                and user.has_perm("catalog.can_edit_category")
         ):
             return ProductManagerForm
         raise PermissionDenied

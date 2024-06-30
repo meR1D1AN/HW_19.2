@@ -6,7 +6,6 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from django.utils.text import slugify
 
 from blog.forms import BlogForm
 from blog.models import Blog
@@ -41,7 +40,7 @@ class BlogUpdateView(UpdateView):
     success_url = reverse_lazy("blog:blog_list")
 
     def get_success_url(self):
-        return reverse_lazy("blog:blog_detail", args=[self.object.slug])
+        return reverse_lazy("blog:blog_detail", kwargs={"pk": self.object.pk})
 
 
 class BlogDeleteView(DeleteView):
